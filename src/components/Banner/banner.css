@@ -1,0 +1,27 @@
+.react-multiple-carousel__arrow--left {
+    height: 100px;
+    background-color: lightgray;
+    color: darkgray;
+    border-radius: 0;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    left: 0;
+}
+.react-multiple-carousel__arrow--right {
+    height: 100px;
+    background-color: lightgray;
+    color: darkgray;
+    border-radius: 0;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    right: 0;
+}
+
+@media (max-width:400px) {
+    .react-multiple-carousel__arrow--left {
+        background:transparent
+    }
+    .react-multiple-carousel__arrow--right {
+        background:transparent
+    }
+}
