@@ -1,12 +1,14 @@
+import { Toaster } from 'react-hot-toast';
 import './App.css';
-import { Banner, Mainnav} from './components';
+import { Banner, Navbar, ProductCard} from './components';
+import { Index as Route } from './routes'; 
 
 function App() {
   return (
-    <div className="App">
-      <Mainnav/>
-      <Banner/>
-    </div>
+    <>
+      <Toaster  />
+      <Route />
+    </>
   );
 }
 
