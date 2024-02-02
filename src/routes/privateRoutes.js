@@ -1,14 +1,11 @@
-import { SignIn,SignUp } from "../pages/indes";
+import { Cart } from "../pages";
 
-export const PrivateRoute = [
-    
+
+
+export const privateRoutes = [
     {
-        path : '/signup',
-        element : <SignUp/>,
-    },
-    {
-        path : '/login',
-        element : <SignIn/>,
-    },
-];
+        path : "/Cart",
+        element : <Cart />
+    }
+]
 

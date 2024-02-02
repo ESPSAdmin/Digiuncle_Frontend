@@ -1,5 +1,16 @@
 import { ProductCard } from "../components";
-import { SignIn,SignUp } from "../pages/indes";
+import { SignIn,SignUp } from "../pages";
+
+export const authRoutes = [
+    {
+        path : '/login',
+        element : <SignIn/>,
+    },
+    {
+        path : '/signup',
+        element : <SignUp/>,
+    },
+]
 
 export const contentRoutes = [
     {

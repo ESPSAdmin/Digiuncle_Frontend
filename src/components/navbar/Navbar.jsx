@@ -4,29 +4,27 @@ import { BiDotsVerticalRounded } from "react-icons/bi";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { Logo, Sidebar } from "..";
 import { IoIosSearch } from "react-icons/io";
-import { MdClose } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaRegHeart } from "react-icons/fa6";
+import { useAuthContext } from "../../context";
 
 const Navbar = () => {
+    const location = useLocation()
     const [slider, setSlider] = useState(false)
-
-
-
-    // if (slider) {
-    //   setSlider(false);
-    // }
-
-
+    const navigate = useNavigate();
+    
+    const {token,logoutHandler} = useAuthContext()
 
     return (
         <>
-            <Sidebar slider={slider} />
+            <Sidebar slider={slider} setSlider={setSlider} token={token} logoutHandler={logoutHandler}/>
 
-            <nav className=" w-screen sm:flex flex-col  sm:flex-row  md:px-4 items-center justify-center sm:justify-between py-2  ">
+            <nav className=" w-screen sm:flex flex-col  sm:flex-row  md:px-4 items-center justify-center sm:justify-between py-2 sticky top-0 bg-white z-40  ">
                 <div className="flex justify-between mx-4 items-center">
-                    <Logo claseName={"h-[40px]"} />
-                    {slider ? <MdClose size={25} className=" sm:hidden" onClick={() => setSlider(false)} /> : <RxHamburgerMenu size={25} className="sm:hidden" onClick={() => setSlider(true)} />}
+                    <Link to="/" >
+                    <Logo claseName={"h-[40px]"}  />
+                    </Link>
+                     <RxHamburgerMenu size={25} className="sm:hidden" onClick={() => setSlider(true)} />
                 </div>
                 <div>
                     <ul className="flex items-center gap-8 justify-evenly lg py-2">
@@ -42,7 +40,7 @@ const Navbar = () => {
                                 <IoIosSearch size={25} />
                             </Link>
                         </li>
-                        <li>
+                        <li onClick={() => navigate('/Cart')}>
                             <Link className=" flex flex-col items-center " >
                                 <IoCartOutline size={25} />
                                 <span className=" hidden md:flex">Cart</span>
@@ -56,7 +54,7 @@ const Navbar = () => {
                             </Link>
                         </li>
                         <li className="hidden sm:flex" onClick={() => setSlider(!slider)}>
-                            <Link>{slider ? <MdClose size={25} /> : <BiDotsVerticalRounded size={30} />}</Link>
+                            <Link> <BiDotsVerticalRounded size={30} /></Link>
                         </li>
                     </ul>
                 </div>
@@ -64,7 +62,8 @@ const Navbar = () => {
             </nav>
             <hr />
 
-            <div className='h-14 w-screen hidden  md:flex  z-0 ' >
+            {location.pathname == "/login" || location.pathname == "/signup"  ? ""
+            :(<div className='h-14 w-screen hidden  md:flex  z-0 ' >
                 <nav className='h-full w-full mx-5 '>
                     <ul className='h-full flex items-center justify-evenly'>
                         <li>Best Selling </li>
@@ -74,7 +73,7 @@ const Navbar = () => {
                         <li>Best Combo</li>
                     </ul>
                 </nav>
-            </div>
+            </div>)}
         </>
     )
 }

@@ -11,17 +11,27 @@ import { MdOutlineCategory } from "react-icons/md";
 import { IoBagAdd } from "react-icons/io5";
 import { MdLocalOffer } from "react-icons/md";
 import { MdSell } from "react-icons/md";
+import { MdClose } from "react-icons/md";
 
 
-const sidebar = ({ slider }) => {
+const sidebar = ({ slider, setSlider, token,logoutHandler }) => {
+
+    const handleLogOut = ()=>{
+        logoutHandler()
+    }
 
     return (
         <>
 
-            <div className={`h-[100vh] sm:h-fit w-fit absolute  top-24 pt-3 md:top-20 pb-20 pe-20 right-0 ${slider ? "" : "hidden"} bg-white z-50 sm:top-16 transition-all duration-300 `} >
-                <ul>
-                    <li >
-                        <Link className='flex items-center gap-2 px-4  mb-5'>
+            <div className={`h-[100vh]  w-fit fixed   pt-3   right-0 ${slider ? "" : "hidden"} bg-white z-50  transition-all duration-300 py-10 `} >
+                <div className='float-end mr-5'>
+                    <MdClose size={25} onClick={() => setSlider(false)} />
+                </div>
+                <ul className='py-10'>
+
+                    {token ? <>
+                    <li className='hover:bg-gray-200 pe-20 py-2' >
+                        <Link className='flex items-center gap-2 px-4  '>
                             <FaRegUserCircle size={25} />
                             <span>
                                 My Profile
@@ -29,8 +39,8 @@ const sidebar = ({ slider }) => {
 
                         </Link>
                     </li>
-                    <li >
-                        <Link className='flex items-center gap-2 px-4  mb-5'>
+                    <li className='hover:bg-gray-200 pe-20 py-2' >
+                        <Link className='flex items-center gap-2 px-4  '>
                             <IoIosNotificationsOutline size={25} />
                             <span>
                                 Notification
@@ -40,11 +50,8 @@ const sidebar = ({ slider }) => {
                             </span>
                         </Link>
                     </li>
-                    
-
-
-                    <li >
-                        <Link className='flex items-center gap-2 px-4  mb-5'>
+                    <li className='hover:bg-gray-200 pe-20 py-2' >
+                        <Link className='flex items-center gap-2 px-4  '>
                             <MdOutlineProductionQuantityLimits size={25} />
                             <span>
                                 My Order
@@ -52,53 +59,56 @@ const sidebar = ({ slider }) => {
 
                         </Link>
                     </li>
-                    <li >
-                        <Link className='flex items-center gap-2 px-4  mb-5'>
-                            <BiSolidOffer size={25} />
-                            <span>
-                            Best Combo
-                            </span>
 
-                        </Link>
-                    </li>
-                    <li >
-                        <Link className='flex items-center gap-2 px-4  mb-5'>
-                            <MdOutlineCategory size={25} />
-                            <span>
-                            Top Categories
-                            </span>
+                    <ul className='sm:hidden'>
+                        <li className='hover:bg-gray-200 pe-20 py-2'>
+                            <Link className='flex items-center gap-2 px-4 '>
+                                <BiSolidOffer size={25} />
+                                <span>
+                                    Best Combo
+                                </span>
 
-                        </Link>
-                    </li>
-                    <li >
-                        <Link className='flex items-center gap-2 px-4  mb-5'>
-                            <IoBagAdd size={25} />
-                            <span>
-                            Recently Addied 
-                            </span>
+                            </Link>
+                        </li>
+                        <li className='hover:bg-gray-200 pe-20 py-2'>
+                            <Link className='flex items-center gap-2 px-4  '>
+                                <MdOutlineCategory size={25} />
+                                <span>
+                                    Top Categories
+                                </span>
 
-                        </Link>
-                    </li>
-                    <li >
-                        <Link className='flex items-center gap-2 px-4  mb-5'>
-                            <MdLocalOffer size={25} />
-                            <span>
-                            Top offers
-                            </span>
+                            </Link>
+                        </li>
+                        <li className='hover:bg-gray-200 pe-20 py-2' >
+                            <Link className='flex items-center gap-2 px-4  '>
+                                <IoBagAdd size={25} />
+                                <span>
+                                    Recently Addied
+                                </span>
 
-                        </Link>
-                    </li>
-                    <li >
-                        <Link className='flex items-center gap-2 px-4  mb-5'>
-                            <MdSell size={25} />
-                            <span>
-                            Best Selling
-                            </span>
+                            </Link>
+                        </li>
+                        <li className='hover:bg-gray-200 pe-20 py-2' >
+                            <Link className='flex items-center gap-2 px-4  '>
+                                <MdLocalOffer size={25} />
+                                <span>
+                                    Top offers
+                                </span>
 
-                        </Link>
-                    </li>
-                    <li >
-                        <Link className='flex items-center gap-2 px-4  mb-5'>
+                            </Link>
+                        </li>
+                        <li className='hover:bg-gray-200 pe-20 py-2' >
+                            <Link className='flex items-center gap-2 px-4  '>
+                                <MdSell size={25} />
+                                <span>
+                                    Best Selling
+                                </span>
+
+                            </Link>
+                        </li>
+                    </ul>
+                    <li className='hover:bg-gray-200 pe-20 py-2' >
+                        <Link className='flex items-center gap-2 px-4  '>
                             <MdOutlinePrivacyTip size={25} />
                             <span>
                                 Privacy And Policy
@@ -106,8 +116,8 @@ const sidebar = ({ slider }) => {
 
                         </Link>
                     </li>
-                    <li >
-                        <Link className='flex items-center gap-2 px-4  mb-5'>
+                    <li className='hover:bg-gray-200 pe-20 py-2' >
+                        <Link className='flex items-center gap-2 px-4  '>
                             <IoMdHelpCircle size={25} />
                             <span>
                                 Help
@@ -115,8 +125,8 @@ const sidebar = ({ slider }) => {
 
                         </Link>
                     </li>
-                    <li >
-                        <Link className='flex items-center gap-2 px-4  mb-5'>
+                    <li className='hover:bg-gray-200 pe-20 py-2' onClick={handleLogOut}>
+                        <Link className='flex items-center gap-2 px-4  '>
                             <FaPowerOff size={25} />
                             <span>
                                 LogOut
@@ -124,7 +134,27 @@ const sidebar = ({ slider }) => {
 
                         </Link>
                     </li>
-                    
+                    </>:<>
+                    <li className='hover:bg-gray-200 pe-20 py-2' onClick={()=>setSlider(false)} >
+                        <Link to="/login" className='flex items-center gap-2 px-4  '>
+                            <FaRegUserCircle size={25} />
+                            <span>
+                                Login
+                            </span>
+
+                        </Link>
+                    </li>
+                    <li className='hover:bg-gray-200 pe-20 py-2' >
+                        <Link className='flex items-center gap-2 px-4  '>
+                        <IoMdHelpCircle size={25} />
+                            <span>
+                                Help
+                            </span>
+
+                        </Link>
+                    </li>
+                    </>
+                    }
                 </ul>
             </div>
 
