@@ -7,8 +7,10 @@ import { IoIosSearch } from "react-icons/io";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaRegHeart } from "react-icons/fa6";
 import { useAuthContext } from "../../context";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
+    const {cart} = useSelector(state=>state)
     const location = useLocation()
     const [slider, setSlider] = useState(false)
     const navigate = useNavigate();
@@ -22,7 +24,7 @@ const Navbar = () => {
             <nav className=" w-screen sm:flex flex-col  sm:flex-row  md:px-4 items-center justify-center sm:justify-between py-2 sticky top-0 bg-white z-40  ">
                 <div className="flex justify-between mx-4 items-center">
                     <Link to="/" >
-                    <Logo claseName={"h-[40px]"}  />
+                    <img src="./image/logo.jpeg" claseName="h-[40px]" alt="Logo"  />
                     </Link>
                      <RxHamburgerMenu size={25} className="sm:hidden" onClick={() => setSlider(true)} />
                 </div>
@@ -41,14 +43,18 @@ const Navbar = () => {
                             </Link>
                         </li>
                         <li onClick={() => navigate('/Cart')}>
-                            <Link className=" flex flex-col items-center " >
-                                <IoCartOutline size={25} />
-                                <span className=" hidden md:flex">Cart</span>
+                            <Link className=" flex gap-0 flex-col items-center relative" >
+                                <IoCartOutline className="m-0 p-0 text-3xl" />
+                                <span className=" hidden md:flex p-0 m-0">Cart
+                                {
+                                    cart.length > 0 ? <span className="bg-red-500  text-white font-bold px-[6px]  rounded-full text-sm absolute top-[-17%] right-[-8px]">{cart.length}</span> : ""
+                                }
+                                </span>
                             </Link>
                         </li>
                         <li>
                             <Link className="flex flex-col items-center relative "  >
-                                <FaRegHeart size={25} />
+                                <FaRegHeart className="text-3xl p-0 m-0" />
                                 <span className="hidden md:flex">Wishlist</span>
                                 
                             </Link>
@@ -62,7 +68,7 @@ const Navbar = () => {
             </nav>
             <hr />
 
-            {location.pathname == "/login" || location.pathname == "/signup"  ? ""
+            {location.pathname == "/login" ||  "/signup" ||  "/Cart" ||  "/product/:id"  ? ""
             :(<div className='h-14 w-screen hidden  md:flex  z-0 ' >
                 <nav className='h-full w-full mx-5 '>
                     <ul className='h-full flex items-center justify-evenly'>

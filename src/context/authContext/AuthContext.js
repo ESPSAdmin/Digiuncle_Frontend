@@ -8,7 +8,6 @@ export const AuthContext = createContext();
 const AuthContextProvider = ({ children }) => {
   const [token, setToken] = useState(() => localStorage.getItem("token") || null);
   const [loggingIn, setLoggingIn] = useState(false);
-  const [res,setRes] = useState("")
 
   const loginHandler = async ({ email = "", password = "" }) => {
     setLoggingIn(true);
@@ -21,7 +20,6 @@ const AuthContextProvider = ({ children }) => {
           password,
         }
       );
-      setRes(response)
       if (response.status === 200) {
         const authToken = response.data.token;
         setToken(authToken);

@@ -6,11 +6,10 @@ import toast from 'react-hot-toast';
 import { useAuthContext } from '../context';
 
 const Login = () => {
-    const { loginHandler, token } = useAuthContext();
+    const { loginHandler, token,loggingIn } = useAuthContext();
     const navigate = useNavigate()
     const location = useLocation();
     const [show,setShow] = useState(false)
-    const [loader,setLoader] = useState(false)
     const [loginCredential, setLoginCredentials] = useState({
         email: "",
         password: "",
@@ -20,7 +19,6 @@ const Login = () => {
         let id;
         if(token){
             id = setTimeout(() => {
-                setLoader(false);
                 navigate(location?.state?.from?.pathname ?? "/")
             }, 1000)
         }
@@ -62,7 +60,7 @@ const Login = () => {
                                     <span className="text-sm text-blue-700 hover:underline cursor-pointer">Forgot password?</span>
                                 </div>
                                 <div className="">
-                                    <button className="mt-4 mb-3 w-full bg-green-500 hover:bg-green-400 text-white py-2 rounded-md flex items-center justify-center gap-3" type='submit' onClick={()=>setLoader(true)} >{loader ? <img src='./loader/loader.gif' /> : null} Login  </button>
+                                    <button className="mt-4 mb-3 w-full bg-green-500 hover:bg-green-400 text-white py-2 rounded-md flex items-center justify-center gap-3" type='submit'  >{loggingIn ? <img src='./loader/loader.gif' /> : null} Login  </button>
                                     {/* <div className="flex  space-x-2 justify-center items-end bg-gray-700 hover:bg-gray-600 text-white py-2 rounded-md transition duration-100">
 
                                         <img className=" h-5 cursor-pointer" src="https://i.imgur.com/arC60SB.png" alt="" />

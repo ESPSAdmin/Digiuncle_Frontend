@@ -3,15 +3,21 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
-import { AuthContextProvider } from './context';
+import { AuthContextProvider, CartContextProvider } from './context';
+import { Provider } from 'react-redux';
+import { store } from './Redux/Store/Store';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <AuthContextProvider>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <CartContextProvider>
+        <BrowserRouter>
+          <Provider store={store}>
+            <App />
+          </Provider>
+        </BrowserRouter>
+      </CartContextProvider>
     </AuthContextProvider>
   </React.StrictMode>
 );

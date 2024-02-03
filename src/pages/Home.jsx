@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Banner, ProductCard } from '../components'
 import Login from './Login'
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
   const [data,setData]=useState([]);
@@ -15,9 +16,12 @@ const res =  await axios.get("http://localhost:3002/product")
   return (
     <>
     <Banner/>
-    <div>
-      <h2 className='ps-8 text-xl font-serif font-semibold'>Best Selling</h2>
+    <div className="py-3">
+      <p className="py-2"><h2 className='mx-8 text-4xl font-serif font-semibold'>Best Selling</h2></p>
       <ProductCard data={data}/>
+      <div className="py-3 bg-gray-100 flex justify-center"> 
+        <Link className="text-2xl">See all products...</Link>
+      </div>
     </div>
     
     </>
