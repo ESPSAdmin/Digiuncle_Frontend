@@ -10,23 +10,23 @@ import { useAuthContext } from "../../context";
 import { useSelector } from "react-redux";
 
 const Navbar = () => {
-    const {cart} = useSelector(state=>state)
+    const { cart } = useSelector(state => state)
     const location = useLocation()
     const [slider, setSlider] = useState(false)
     const navigate = useNavigate();
-    
-    const {token,logoutHandler} = useAuthContext()
+
+    const { token, logoutHandler } = useAuthContext()
 
     return (
         <>
-            <Sidebar slider={slider} setSlider={setSlider} token={token} logoutHandler={logoutHandler}/>
+            <Sidebar slider={slider} setSlider={setSlider} token={token} logoutHandler={logoutHandler} />
 
             <nav className=" w-screen sm:flex flex-col  sm:flex-row  md:px-4 items-center justify-center sm:justify-between py-2 sticky top-0 bg-white z-40  ">
-                <div className="flex justify-between mx-4 items-center">
-                    <Link to="/" >
-                    <img src="./image/logo.jpeg" claseName="h-[40px]" alt="Logo"  />
+                <div className="flex justify-between mx-4 items-center ">
+                    <Link to="/"  >
+                        <img src="./image/logo.jpeg" className="h-10" alt="Logo" />
                     </Link>
-                     <RxHamburgerMenu size={25} className="sm:hidden" onClick={() => setSlider(true)} />
+                    <RxHamburgerMenu size={25} className="sm:hidden" onClick={() => setSlider(true)} />
                 </div>
                 <div>
                     <ul className="flex items-center gap-8 justify-evenly lg py-2">
@@ -46,9 +46,9 @@ const Navbar = () => {
                             <Link className=" flex gap-0 flex-col items-center relative" >
                                 <IoCartOutline className="m-0 p-0 text-3xl" />
                                 <span className=" hidden md:flex p-0 m-0">Cart
-                                {
-                                    cart.length > 0 ? <span className="bg-red-500  text-white font-bold px-[6px]  rounded-full text-sm absolute top-[-17%] right-[-8px]">{cart.length}</span> : ""
-                                }
+                                    {
+                                        cart.length > 0 ? <span className="bg-red-500  text-white font-bold px-[6px]  rounded-full text-sm absolute top-[-17%] right-[-8px]">{cart.length}</span> : ""
+                                    }
                                 </span>
                             </Link>
                         </li>
@@ -56,7 +56,7 @@ const Navbar = () => {
                             <Link className="flex flex-col items-center relative "  >
                                 <FaRegHeart className="text-3xl p-0 m-0" />
                                 <span className="hidden md:flex">Wishlist</span>
-                                
+
                             </Link>
                         </li>
                         <li className="hidden sm:flex" onClick={() => setSlider(!slider)}>
@@ -68,18 +68,18 @@ const Navbar = () => {
             </nav>
             <hr />
 
-            {location.pathname == "/login" ||  "/signup" ||  "/Cart" ||  "/product/:id"  ? ""
-            :(<div className='h-14 w-screen hidden  md:flex  z-0 ' >
-                <nav className='h-full w-full mx-5 '>
-                    <ul className='h-full flex items-center justify-evenly'>
-                        <li>Best Selling </li>
-                        <li>Top offers </li>
-                        <li>Recently Addied </li>
-                        <li>Top Categories </li>
-                        <li>Best Combo</li>
-                    </ul>
-                </nav>
-            </div>)}
+            {location.pathname == "/login" || location.pathname == "/signup" || location.pathname == "/Cart" ||location.pathname ==  "/product/:id" || location.pathname == "/productlist" ? null
+                : (<div className='h-14 w-screen hidden  md:flex  z-0 ' >
+                    <nav className='h-full w-full mx-5 '>
+                        <ul className='h-full flex items-center justify-evenly'>
+                            <li>Best Selling </li>
+                            <li>Top offers </li>
+                            <li>Recently Addied </li>
+                            <li>Top Categories </li>
+                            <li>Best Combo</li>
+                        </ul>
+                    </nav>
+                </div>)}
         </>
     )
 }

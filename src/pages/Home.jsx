@@ -20,7 +20,7 @@ const res =  await axios.get("http://localhost:3002/product")
       <p className="py-2"><h2 className='mx-8 text-4xl font-serif font-semibold'>Best Selling</h2></p>
       <ProductCard data={data}/>
       <div className="py-3 bg-gray-100 flex justify-center"> 
-        <Link className="text-2xl">See all products...</Link>
+        <Link to="/productlist" className="text-2xl">See all products...</Link>
       </div>
     </div>
     

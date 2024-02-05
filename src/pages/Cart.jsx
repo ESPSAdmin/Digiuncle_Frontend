@@ -6,13 +6,15 @@ import { removeitem } from '../Redux/Slices/CartSlice';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import { useCartContext } from '../context';
+import "../App.css"
 
 const Cart = () => {
-  const {deleteProductFromCart} = useCartContext()
+  const counting = localStorage.getItem("quantity")
+  const {Decrease,Increase} = useCartContext()
   const { cart } = useSelector(state => state);
   const dispatch = useDispatch()
-  const TotalPrice = cart.reduce((total, result) => total + result.price, 0)
-
+  const Price = cart.reduce((total, result) => total + result.price, 0)
+const TotalPrice = Price*counting
 
   return (
     <>
@@ -20,7 +22,7 @@ const Cart = () => {
         cart.length > 0 ? <>
           <div className=' w-screen  flex  bg-gray-200 md:py-10'>
             <div className='h-[75vh] w-screen md:mx-8  flex flex-wrap sm:justify-between'>
-              <div className='md:w-[70%]   rounded-xl w-screen h-full overflow-y-scroll '>
+              <div className='md:w-[70%]   rounded-xl w-screen h-full overflow-y-scroll scrollbar '>
                 <div className='py-3 flex justify-between  bg-white px-5 items-center font-medium mb-5'>
                   <span className='text-xs sm:text-sm md:text-base'>Total Unique Item</span>
                   <button className='border py-1 px-2 text-xs sm:text-sm md:text-base'>{cart.length}</button>
@@ -28,22 +30,24 @@ const Cart = () => {
                 {
                   cart.map((item) => {
                     return (
-                      <div className='flex gap-5 bg-white px-5 py-2 ' key={item.id}>
+                      <div className='flex gap-5 bg-white px-5 py-2  ' key={item.id}>
                         <div className=' h-fit  sm:h-40 w-fit flex flex-col justify-between'>
-                          <div className=' h-20 w-20 sm:h-28 sm:w-28 bg-black rounded-md' ></div>
+                          <div className=' h-20 w-20 sm:h-28 sm:w-28  rounded-md' >
+                            <img src={item.image} alt="product image"  className='h-full w-full'/>
+                          </div>
                           <div className=' pt-4 flex items-center gap-2 sm:gap-1'>
-                            <div className='sm:px-1  sm:py-1 border border-black rounded-full sm:text-lg'><FaPlus /></div>
-                            <div className=' px-2 sm:px-4  border border-black'>1</div>
-                            <div className='sm:px-1 sm:py-1 border border-black rounded-full sm:text-xl' ><FaMinus /></div>
+                            <div className='sm:px-1  sm:py-1 border border-black rounded-full sm:text-lg' onClick={()=>Decrease(item)}><FaMinus /></div>
+                            <div className=' px-2 sm:px-4  border border-black'>{counting}</div>
+                            <div className='sm:px-1 sm:py-1 border border-black rounded-full sm:text-xl' onClick={Increase} ><FaPlus /></div>
                           </div>
                         </div>
                         <div>
                           <div>
-                            <p className=' text-xs sm:text-sm md:text-base font-medium'>PUMA Player Casuals For Men</p>
+                            <p className=' text-xs sm:text-sm md:text-base font-medium'>{item.title}</p>
                             <p className='text-sm font-medium text-gray-600'>Size: 8,Grey</p>
                           </div>
                           <h2 className='text-sm font-medium text-gray-600 py-2'>Seller:HSAtlastradeFashion</h2>
-                          <h2 className='text-sm font-medium text-gray-600 py-2'> <span className='line-through text-xs sm:text-sm md:text-base text-gray-500'>₹8,598</span> <span className=' font-medium text-black  sm:text-sm md:text-lg ' >₹2,150</span> <span className='text-green-600'>74% Off  1 offer applied</span></h2>
+                          <h2 className='text-sm font-medium text-gray-600 py-2'> <span className='line-through text-xs sm:text-sm md:text-base text-gray-500'>{item.discounted ? `${item.currency}${item.discounted}` : null}</span> <span className=' font-medium text-black  sm:text-sm md:text-lg ' >{`${item.currency}${item.price}`}</span> <span className='text-green-600'>74% Off  1 offer applied</span></h2>
                           <div className=' hidden sm:flex items-center gap-5'>
                             <button className='sm:text-md text-sm font-medium text-green-600' >ADD TO WISHLIST</button>
                             <button className='text-md font-medium text-red-500' onClick={() => { dispatch(removeitem(item)); toast.success("Item Remove") }} >Remover</button>

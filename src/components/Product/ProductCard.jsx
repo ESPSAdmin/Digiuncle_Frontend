@@ -49,10 +49,10 @@ const ProductCard = ({ data = [] }) => {
                                         </Link>
                                         <div className='mt-2 mb-5 flex items-center justify-between'>
                                             <p>
-                                                <span class="text-3xl font-bold text-slate-900">$449</span>
-                                                <span class="text-sm text-slate-900 line-through">$699</span>
+                                                <span class="text-3xl font-bold text-slate-900">{`${item.currency}${item.price}` }</span>
+                                                <span class="text-sm text-slate-900 line-through">{item.discounted ? `${item.currency}${item.price - item.discounted}` : null}</span>
                                             </p>
-                                            <ReactStars count={5} value={3} color={'#ffd700'} size={24} />
+                                            <ReactStars count={5} value={item.rating} color={'#ffd700'} size={24} />
                                         </div>
                                         <div>
                                             <button className='w-full flex items-center justify-center rounded-md bg-slate-900 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300' onClick={() => addToCart(item)} >Add to cart</button>
