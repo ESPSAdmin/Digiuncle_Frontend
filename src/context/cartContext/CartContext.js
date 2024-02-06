@@ -1,10 +1,6 @@
 import React, { createContext, useEffect, useReducer, useState } from 'react';
-import axios from 'axios';
-import { useAuthContext } from '..';  // Update this import based on your project structure
-import { actionType } from '../../utils/actionType';  // Update this import based on your project structure
-import toast from 'react-hot-toast';
-import { useDispatch } from 'react-redux';
-import { removeitem } from '../../Redux/Slices/CartSlice';
+import { useAuthContext } from '..';  
+import { reducer } from '../../reducer';
 
 export const CartContext = createContext();
 
@@ -12,44 +8,64 @@ export const CartContext = createContext();
 // You should import them and use them in the `useReducer` hook.
 
 const CartContextProvider = ({ children }) => {
-  const dispatch = useDispatch()
   const { token } = useAuthContext();  
   const [count, setCount] = useState(1);
+  const stock = 10;
 
-  const Increase = () => {
-    setCount(prevCount => {
-      const newCount = prevCount + 1;
-      localStorage.setItem("quantity", newCount);
-      return newCount;
-    });
+  const getLocalData = ()=>{
+    let data = localStorage.getItem("Cart")
+    if(data == []){
+      return []
+    }else{
+      return JSON.parse(data)
+    }
+  }
+
+
+  const initialstate = {
+    Cart:getLocalData(),
+    total_item:"",
+    total_amount:'',
+  }
+
+  
+  
+
+  const [state,dispatch] = useReducer(reducer,initialstate)
+
+  const addToCart = (item)=>{
+    dispatch({type:"ADD_TO_CART" ,payload:{...item,productcount:count}})
+  }
+
+  const removeItem = (item)=>{
+    dispatch({type:"REMOVE_ITEM",payload:item.id})
+  }
+
+  const Increase = (item) => {
+    count < stock ? setCount(count + 1) : setCount(count)
+    dispatch({type:"ADD_TO_CART" ,payload:{...item,productcount:1}})
   };
 
   const Decrease = (item) => {
     if(count <= 1){
-      dispatch(removeitem(item))
+      dispatch({type:"REMOVE_ITEM",payload:item.id})
     }else{
-      setCount(prevCount => {
-        const newCount = prevCount - 1;
-        localStorage.setItem("quantity", newCount);
-        return newCount;
-      });
+      count >= 1 ? setCount(count - 1) : setCount(1)
+      dispatch({type:"ADD_TO_CART" ,payload:{...item,productcount:-1}})
     }
     
     
   };
 
   useEffect(() => {
-    const storedCount = localStorage.getItem("quantity");
-    if (storedCount) {
-      setCount(parseInt(storedCount, 10));
-    }
-  }, []);
+   localStorage.setItem("Cart",JSON.stringify(state.Cart))
+  }, [state.Cart]);
   
 
   return (
     <CartContext.Provider
-      value={{
-        Increase,Decrease
+      value={{...state,
+        Increase,Decrease,addToCart,removeItem
       }}
     >
       {children}

@@ -2,15 +2,14 @@ import React, { useEffect, useState } from "react";
 import { IoCartOutline } from "react-icons/io5";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import { RxHamburgerMenu } from "react-icons/rx";
-import { Logo, Sidebar } from "..";
+import {  Sidebar } from "..";
 import { IoIosSearch } from "react-icons/io";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaRegHeart } from "react-icons/fa6";
-import { useAuthContext } from "../../context";
-import { useSelector } from "react-redux";
+import { useAuthContext, useCartContext } from "../../context";
 
 const Navbar = () => {
-    const { cart } = useSelector(state => state)
+    const {Cart} = useCartContext()
     const location = useLocation()
     const [slider, setSlider] = useState(false)
     const navigate = useNavigate();
@@ -47,7 +46,7 @@ const Navbar = () => {
                                 <IoCartOutline className="m-0 p-0 text-3xl" />
                                 <span className=" hidden md:flex p-0 m-0">Cart
                                     {
-                                        cart.length > 0 ? <span className="bg-red-500  text-white font-bold px-[6px]  rounded-full text-sm absolute top-[-17%] right-[-8px]">{cart.length}</span> : ""
+                                        Cart.length > 0 ? <span className="bg-red-500  text-white font-bold px-[6px]  rounded-full text-sm absolute top-[-17%] right-[-8px]">{Cart.length}</span> : ""
                                     }
                                 </span>
                             </Link>

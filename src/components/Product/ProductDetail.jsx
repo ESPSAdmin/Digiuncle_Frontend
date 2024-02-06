@@ -2,35 +2,29 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useLocation, useParams } from 'react-router-dom';
 import ReactStars from 'react-stars';
-import { IoCartOutline } from "react-icons/io5";
-import { useDispatch, useSelector } from 'react-redux';
-import { additem } from '../../Redux/Slices/CartSlice';
-import toast from 'react-hot-toast';
+import { IoCartOutline } from "react-icons/io5"
+import { useCartContext } from '../../context';
 
 const ProductDetail = () => {
-  const location = useLocation()
-  console.log(location);
-  const dispatch = useDispatch()
-  const { cart } = useSelector(state => state)
   const { id } = useParams();
   const [item, setItem] = useState([])
   const filterdata = item.filter((i) => i.id == id)
+  const {addToCart} = useCartContext()
 
-  const addToCart = (item) => {
-    const isItemExist = cart.find((cartItem) => cartItem.id === item.id);
-    if (isItemExist) {
-      toast.error("Item already in the cart");
-    } else {
-      dispatch(additem(item))
-      toast.success(`${cart.length + 1} Item Addied Successfully`)
-    }
-  }
+  // const addToCart = (item) => {
+  //   const isItemExist = cart.find((cartItem) => cartItem.id === item.id);
+  //   if (isItemExist) {
+  //     toast.error("Item already in the cart");
+  //   } else {
+  //     dispatch(additem(item))
+  //     toast.success(`${cart.length + 1} Item Addied Successfully`)
+  //   }
+  // }
 
   const fetchProductDetail = async () => {
     try {
       const response = await axios.get(`http://localhost:3002/product`);
       setItem(response.data)
-      console.log(response.data)
     } catch (err) {
       console.log('Error fetching product details:', err);
     }
@@ -59,7 +53,7 @@ const ProductDetail = () => {
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-3">
-                <button className="bg-yellow-500 py-3 text-xl font-medium text-white hover:bg-yellow-600 transition-all duration-200 flex items-center justify-center gap-3" onClick={() => addToCart(item)} ><IoCartOutline />Add to Cart</button>
+                <button className="bg-yellow-500 py-3 text-xl font-medium text-white hover:bg-yellow-600 transition-all duration-200 flex items-center justify-center gap-3" onClick={() => addToCart(sp)} ><IoCartOutline />Add to Cart</button>
                 <button className="bg-orange-500 py-3 text-xl font-medium text-white hover:bg-orange-600 transition-all duration-200">Buy Now</button>
 
               </div>

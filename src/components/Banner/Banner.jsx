@@ -6,7 +6,6 @@ import axios from 'axios';
 
 const Banner = () => {
   const [data, setData] = useState([])
-  console.log(data);
   const settings = {
     dots: true,
     infinite: true,
@@ -33,7 +32,7 @@ const Banner = () => {
         <div className=''>
         <Slider {...settings}>
           {data.map((item) => (
-            <div className='mx-auto w-[90%] h-[60vh]'>
+            <div className='mx-auto w-[90%] h-[60vh]' key={item.id}>
               <img src={item.path} alt="" className='w-full h-full' />
             </div>
           ))}

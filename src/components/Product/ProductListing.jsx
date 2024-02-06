@@ -32,15 +32,15 @@ const ProductListing = () => {
 
             </div>
             <div className='h-full w-[78%] '>
-                <ol class="flex items-center whitespace-nowrap" aria-label="Breadcrumb">
-                    <li class="inline-flex items-center">
-                        <Link to='/' class="flex items-center text-sm text-gray-500 hover:text-blue-600 focus:outline-none focus:text-blue-600 dark:focus:text-blue-500" href="#">
+                <ol className="flex items-center whitespace-nowrap" aria-label="Breadcrumb">
+                    <li className="inline-flex items-center">
+                        <Link to='/' className="flex items-center text-sm text-gray-500 hover:text-blue-600 focus:outline-none focus:text-blue-600 dark:focus:text-blue-500" href="#">
                             Home
                         </Link>
                         <IoIosArrowForward />
                     </li>
-                    <li class="inline-flex items-center">
-                        <Link to={location.pathname} class="flex items-center text-sm text-gray-500 hover:text-blue-600 focus:outline-none focus:text-blue-600 dark:focus:text-blue-500" href="#">
+                    <li className="inline-flex items-center">
+                        <Link to={location.pathname} className="flex items-center text-sm text-gray-500 hover:text-blue-600 focus:outline-none focus:text-blue-600 dark:focus:text-blue-500" href="#">
                             {location.pathname}
                         </Link>
                         <IoIosArrowForward />
