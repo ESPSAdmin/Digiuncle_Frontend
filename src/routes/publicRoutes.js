@@ -25,5 +25,9 @@ export const contentRoutes = [
         path : '/productlist',
         element : <ProductList/>,
     },
+    {
+        path : '/productlist/:category',
+        element : <ProductList/>,
+    },
 ];
 

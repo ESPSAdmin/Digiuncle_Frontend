@@ -5,76 +5,92 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import 'slick-carousel/slick/slick-theme.css';
 import 'react-multi-carousel/lib/styles.css';
-import { useCartContext } from '../../context';
+import { useCartContext, useProductContext } from '../../context';
 
-const ProductCard = ({ data = [] }) => {
-    const [toggleCart,Settogglecart] = useState([])
-    const {addToCart} = useCartContext()
+const ProductCard = ({ data }) => {
+    console.log("data", data);
+    // const data = []
+    const [toggleCart, Settogglecart] = useState([])
+    const { addToCart } = useCartContext()
+    const { addRecentProduct } = useProductContext()
 
     const settings = {
-        slidesToShow: 4,
+        slidesToShow: data.length < 4 ?  data.length : 4,
         slidesToScroll: 1,
     }
 
-    
+
 
     return (
         <>
-            <div className='mx-8 overflow-hidden
+            <div className=' overflow-hidden
             ' >
-                <Slider {...settings}>
-                    {
-                        data.map((item) => {
-                            return (
-                                <div className='flex flex-col items-center overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md' key={item.id}>
-                                    <Link to={`/product/${item.id}`} className='relative mx-3 mt-3 flex h-60 overflow-hidden rounded-xl'>
-                                        <img className="object-cover" src={item.image} alt="" />
-                                        <span className='absolute top-0 left-0 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-white'>39% Off</span>
-                                    </Link>
-                                    <div className='mt-4 px-5 pb-5'>
-                                        <Link to={`/product/${item.id}`} className='text-xl tracking-tight text-slate-900'>
-                                            {item.title}
-                                        </Link>
-                                        <div className='mt-2 mb-5 flex items-center justify-between'>
-                                            <p>
-                                                <span className="text-3xl font-bold text-slate-900">{`${item.currency}${item.price}` }</span>
-                                                <span className="text-sm text-slate-900 line-through">{item.discounted ? `${item.currency}${item.price - item.discounted}` : null}</span>
-                                            </p>
-                                            <ReactStars count={5} value={item.rating} color={'#ffd700'} size={24} />
+
+                <div className='mx-8'>
+                    {data.length > 4 ? <Slider {...settings} className='w-[100%] py-4'>
+                        {data.map((product) => (
+                            <div key={product.id} className='py-4'>
+                                <div className='border py-3 rounded-lg mx-3 px-3 border-solid border-slate-500'>
+                                    <div>
+                                        <div className='flex justify-center'>
+                                            <Link to={`/product/${product.id}`} onClick={() => addRecentProduct(product)}>
+                                                <img src={product.image} alt="" className='size-44' />
+                                            </Link>
                                         </div>
-                                        <div>
-                                            <button className='w-full flex items-center justify-center rounded-md bg-slate-900 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300' onClick={() => addToCart(item)} >Add to cart</button>
-                                        </div>
+                                    </div>
+                                    <div>
+                                        <Link><h4 className='font-medium'>{product.title.slice(0, 20)} ...</h4></Link>
+                                        <p className='text-[14px] text-gray-700 font-semibold'>{product.description.slice(0, 55)} ...</p>
+                                        <ReactStars
+                                            count={product.rating}
+                                            size={24}
+                                            activeColor="#5c5470"
+                                            isHalf={true}
+                                            value={product.rating}
+                                            edit={false}
+                                        />
+                                        <button className='border-2 border-solid border-gray-700 w-full py-2 mt-3 rounded-full font-bold'>Add to cart</button>
+                                        <button className='bg-gray-700 w-full py-2 mt-3 text-white rounded-full font-bold'>Buy now</button>
                                     </div>
                                 </div>
-                            )
-                        })
-                    }
-                    {/* <div className='flex flex-col items-center overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md'>
-                                    <Link className='relative mx-3 mt-3 flex h-60 overflow-hidden rounded-xl'>
-                                        <img className="object-cover" src="https://google.png"  alt="" />
-                                        <span className='absolute top-0 left-0 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-white'>39% Off</span>
-                                    </Link>
-                                    <div className='mt-4 px-5 pb-5'>
-                                        <Link className='text-xl tracking-tight text-slate-900'>
-                                            try
-                                        </Link>
-                                        <div className='mt-2 mb-5 flex items-center justify-between'>
-                                            <p>
-                                                <span className="text-3xl font-bold text-slate-900">$449</span>
-                                                <span className="text-sm text-slate-900 line-through">$699</span>
-                                            </p>
-                                            <ReactStars count={5} value={3} color={'#ffd700'} size={24} />
-                                        </div>
-                                        <div>
-                                            <button className='w-full flex items-center justify-center rounded-md bg-slate-900 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300'>Add to cart</button>
+                            </div>
+                        ))}
+                    </Slider> 
+                    : 
+                    <>
+                    <div className='grid grid-cols-4 gap-2'>
+                    {data.map((product) => (
+                            <div key={product.id} className='py-4'>
+                                <div className='border py-3 rounded-lg mx-3 px-3 border-solid border-slate-500'>
+                                    <div>
+                                        <div className='flex justify-center'>
+                                            <Link to={`/product/${product.id}`} onClick={() => addRecentProduct(product)}>
+                                                <img src={product.image} alt="" className='size-44' />
+                                            </Link>
                                         </div>
                                     </div>
-                                </div> */}
-
-                </Slider>
+                                    <div>
+                                        <Link><h4 className='font-medium'>{product.title.slice(0, 20)} ...</h4></Link>
+                                        <p className='text-[14px] text-gray-700 font-semibold'>{product.description.slice(0, 55)} ...</p>
+                                        <ReactStars
+                                            count={product.rating}
+                                            size={24}
+                                            activeColor="#5c5470"
+                                            isHalf={true}
+                                            value={product.rating}
+                                            edit={false}
+                                        />
+                                        <button className='border-2 border-solid border-gray-700 w-full py-2 mt-3 rounded-full font-bold'>Add to cart</button>
+                                        <button className='bg-gray-700 w-full py-2 mt-3 text-white rounded-full font-bold'>Buy now</button>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                    </>}
+                </div>
             </div>
-            
+
         </>
     )
 }

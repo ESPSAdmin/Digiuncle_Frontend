@@ -3,14 +3,13 @@ import React, { useEffect, useState } from 'react'
 import { useLocation, useParams } from 'react-router-dom';
 import ReactStars from 'react-stars';
 import { IoCartOutline } from "react-icons/io5"
-import { useCartContext } from '../../context';
+import { useCartContext, useProductContext } from '../../context';
 
 const ProductDetail = () => {
   const { id } = useParams();
   const [item, setItem] = useState([])
   const filterdata = item.filter((i) => i.id == id)
   const {addToCart} = useCartContext()
-
   // const addToCart = (item) => {
   //   const isItemExist = cart.find((cartItem) => cartItem.id === item.id);
   //   if (isItemExist) {

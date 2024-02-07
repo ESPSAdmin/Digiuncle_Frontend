@@ -39,11 +39,17 @@ const CartContextProvider = ({ children }) => {
 
   const removeItem = (item)=>{
     dispatch({type:"REMOVE_ITEM",payload:item.id})
+    window.location.reload()
   }
 
   const Increase = (item) => {
-    count < stock ? setCount(count + 1) : setCount(count)
-    dispatch({type:"ADD_TO_CART" ,payload:{...item,productcount:1}})
+    if(count < stock){
+      setCount(count + 1)
+      dispatch({type:"ADD_TO_CART" ,payload:{...item,productcount:1}})
+    }else{
+      setCount(count)
+    }
+    
   };
 
   const Decrease = (item) => {
@@ -53,8 +59,6 @@ const CartContextProvider = ({ children }) => {
       count >= 1 ? setCount(count - 1) : setCount(1)
       dispatch({type:"ADD_TO_CART" ,payload:{...item,productcount:-1}})
     }
-    
-    
   };
 
   useEffect(() => {
