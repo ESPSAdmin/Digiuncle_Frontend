@@ -1,18 +1,30 @@
 import React, { useEffect, useState } from 'react'
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import 'slick-carousel/slick/slick-theme.css';
 import axios from 'axios';
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+import "./banner.css"
 
 const Banner = () => {
   const [data, setData] = useState([])
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
+
+
+  const responsive = {
+    superLargeDesktop: {
+      breakpoint: { max: 4000, min: 3000 },
+      items: 1
+    },
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 1
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 1
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1
+    }
   };
 
   const getData = () => {
@@ -25,19 +37,21 @@ const Banner = () => {
   }
   useEffect(() => {
     getData()
-  },[])
+  }, [])
   return (
     <>
-      <div className='mx-8 overflow-hidden'>
-        <div className=''>
-        <Slider {...settings}>
+      <div className=' overflow-hidden'>
+
+
+        <Carousel responsive={responsive} infinite={true} autoPlay={true}
+          autoPlaySpeed={3000}>
           {data.map((item) => (
-            <div className='mx-auto w-[90%] h-[60vh]' key={item.id}>
+            <div className='mx-auto w-screen h-[50vh]' key={item.id}>
               <img src={item.path} alt="" className='w-full h-full' />
             </div>
           ))}
-        </Slider>
-        </div>
+        </Carousel>;
+
       </div>
     </>
   )

@@ -37,7 +37,7 @@ const ProductDetail = () => {
     <>
       {filterdata.map((sp) => (
 
-        <div>
+        <div key={sp.id}>
           <div className='grid grid-cols-1 md:grid-cols-2 gap-4 mx-8'>
 
             <div>
@@ -61,10 +61,10 @@ const ProductDetail = () => {
               <div className='border px-3 py-1 rounded-md' >
 
                 <p className="text-2xl font-medium">{sp.title}</p>
-                <p className="text-lg font-medium">₹{sp.price} <span className="text-green-500 text-sm">{sp.discounted ? `(you save  ₹${sp.price - sp.discounted})` : null}</span> </p>
+                <div className="text-lg font-medium">₹{sp.price} <span className="text-green-500 text-sm">{sp.discounted ? `(you save  ₹${sp.price - sp.discounted})` : null}</span> </div>
                 <p className="line-through text-sm">{sp.discounted ? `₹${sp.discounted}` : null} </p>
                 <p>
-                  <ReactStars count={5} value={sp.rating} color={'#ffd700'} size={24} onChange={null} />
+                  <ReactStars count={5} value={sp.rating} color={'#ffd700'} size={20} onChange={null} />
                 </p>
 
               </div>

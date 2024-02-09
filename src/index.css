@@ -5,3 +5,12 @@
 html,body{
     overflow-x: hidden;
 }
+
+@font-face {
+    font-family: coustem;
+    src: url("./fontes/Poppins-Regular.ttf");
+}
+@font-face {
+    font-family: Roboto;
+    src: url("./fontes/Roboto-Regular.ttf");
+}

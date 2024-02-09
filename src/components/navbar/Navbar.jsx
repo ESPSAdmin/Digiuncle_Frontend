@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { IoCartOutline } from "react-icons/io5";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import { RxHamburgerMenu } from "react-icons/rx";
-import {  Sidebar } from "..";
+import {  SearchBar, Sidebar } from "..";
 import { IoIosSearch } from "react-icons/io";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaRegHeart } from "react-icons/fa6";
@@ -20,7 +20,7 @@ const Navbar = () => {
         <>
             <Sidebar slider={slider} setSlider={setSlider} token={token} logoutHandler={logoutHandler} />
 
-            <nav className=" w-screen sm:flex flex-col  sm:flex-row  md:px-4 items-center justify-center sm:justify-between py-2 sticky top-0 bg-white z-40  ">
+            <nav className=" w-screen sm:flex flex-col  sm:flex-row  md:px-4 items-center justify-center sm:justify-between py-2  bg-white z-40 sticky top-0 ">
                 <div className="flex justify-between mx-4 items-center ">
                     <Link to="/"  >
                         <img src="./image/logo.jpeg" className="h-10" alt="Logo" />
@@ -30,10 +30,7 @@ const Navbar = () => {
                 <div>
                     <ul className="flex items-center gap-8 justify-evenly lg py-2">
                         <li className="hidden md:flex">
-                            <Link className="flex items-center relative">
-                                <input type="text" placeholder="Search product" className="     md:w-[250px] lg:w-[400px]  px-6 h-11 bg-gray-100 rounded-full focus:outline-none  py-1" />
-                                <IoIosSearch size={20} className="absolute right-3" />
-                            </Link>
+                           <SearchBar  />
 
                         </li>
                         <li className="  md:hidden">
@@ -46,7 +43,7 @@ const Navbar = () => {
                                 <IoCartOutline className="m-0 p-0 text-3xl" />
                                 <span className=" hidden md:flex p-0 m-0">Cart
                                     {
-                                        Cart.length > 0 ? <span className="bg-red-500  text-white font-bold px-[6px]  rounded-full text-sm absolute top-[-17%] right-[-8px]">{Cart.length}</span> : ""
+                                        Cart?.length > 0 ? <span className="bg-red-500  text-white font-bold px-[6px]  rounded-full text-sm absolute top-[-17%] right-[-8px]">{Cart.length}</span> : ""
                                     }
                                 </span>
                             </Link>
@@ -63,14 +60,15 @@ const Navbar = () => {
                         </li>
                     </ul>
                 </div>
+                
 
             </nav>
             <hr />
 
-            {location.pathname == "/login" || location.pathname == "/signup" || location.pathname == "/Cart" ||location.pathname ==  "/product/:id" || location.pathname == "/productlist" ? null
-                : (<div className='h-14 w-screen hidden  md:flex  z-0 ' >
+            {location.pathname == "/login" || location.pathname == "/signup" || location.pathname == "/Cart" ||location.pathname ==  "/product/:id" || location.pathname == "/productlist" || location.pathname == "/profile" ? null
+                : (<div className='py-2 w-screen hidden  md:flex  z-0 ' >
                     <nav className='h-full w-full mx-5 '>
-                        <ul className='h-full flex items-center justify-evenly'>
+                        <ul className='h-full flex items-center justify-evenly font-bold font-roboto text-gray-600'>
                             <li>Best Selling </li>
                             <li>Top offers </li>
                             <li>Recently Addied </li>

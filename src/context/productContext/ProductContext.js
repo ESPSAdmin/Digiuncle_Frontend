@@ -28,7 +28,7 @@ const ProductContextProvider = ({ children }) => {
         localStorage.setItem("Recent",JSON.stringify(state.RecentProduct))
         setTimeout(() => {
             localStorage.removeItem("Recent")
-        }, 5000);
+        }, 72*60*60*1000);
     },[state.RecentProduct])
 
     return (

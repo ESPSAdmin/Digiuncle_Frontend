@@ -7,9 +7,8 @@ import { useProductContext } from '../context';
 
 const Home = () => {
   const [data, setData] = useState([]);
-  
-  const {RecentProduct} = useProductContext()
-  console.log(RecentProduct);
+
+  const { RecentProduct } = useProductContext()
 
   const getData = async () => {
     const res = await axios.get("http://localhost:3002/product")
@@ -22,17 +21,20 @@ const Home = () => {
     <>
       <Banner />
       <div className="py-3">
-        {RecentProduct != [] ? <p className="py-2"><h2 className='mx-8 text-4xl font-serif font-semibold'>Recent Viewed</h2></p> : null}
+        {RecentProduct?.length === 0 ? null : <h2 className='mx-5 text-4xl font-serif font-semibold'>Recent Viewed</h2>}
         <ProductCard data={RecentProduct} />
       </div>
       <div className="py-3">
-        <p className="py-2"><h2 className='mx-8 text-4xl font-serif font-semibold'>Best Selling</h2></p>
+        <h2 className='mx-5 text-4xl font-serif font-semibold'>Best Selling</h2>
         <ProductCard data={data} />
-        <div className="py-3 bg-gray-100 flex justify-center">
-          <Link to="/productlist" className="text-2xl">See all products...</Link>
-        </div>
+        <Link to="/productlist" className='py-2 flex w-full justify-end items-center px-5'>
+
+          <button className='bg-red-500 text-lg font-medium px-4 py-2 rounded-sm text-white' >View All Product</button>
+        </Link>
       </div>
-     
+
+
+
     </>
   )
 }
