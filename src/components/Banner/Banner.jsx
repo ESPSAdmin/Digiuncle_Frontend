@@ -40,13 +40,13 @@ const Banner = () => {
   }, [])
   return (
     <>
-      <div className=' overflow-hidden'>
+      <div className=' overflow-hidden z-0'>
 
 
-        <Carousel responsive={responsive} infinite={true} autoPlay={true}
-          autoPlaySpeed={3000}>
+        <Carousel responsive={responsive} infinite={true} 
+          autoPlaySpeed={3000} className=' static z-0' >
           {data.map((item) => (
-            <div className='mx-auto w-screen h-[50vh]' key={item.id}>
+            <div className='mx-auto w-screen h-[50vh] static z-0' key={item.id}>
               <img src={item.path} alt="" className='w-full h-full' />
             </div>
           ))}

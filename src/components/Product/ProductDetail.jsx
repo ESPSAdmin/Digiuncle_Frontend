@@ -4,6 +4,7 @@ import { useLocation, useParams } from 'react-router-dom';
 import ReactStars from 'react-stars';
 import { IoCartOutline } from "react-icons/io5"
 import { useCartContext, useProductContext } from '../../context';
+import toast from 'react-hot-toast';
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -52,7 +53,7 @@ const ProductDetail = () => {
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-3">
-                <button className="bg-yellow-500 py-3 text-xl font-medium text-white hover:bg-yellow-600 transition-all duration-200 flex items-center justify-center gap-3" onClick={() => addToCart(sp)} ><IoCartOutline />Add to Cart</button>
+                <button className="bg-yellow-500 py-3 text-xl font-medium text-white hover:bg-yellow-600 transition-all duration-200 flex items-center justify-center gap-3" onClick={() => {addToCart(sp);toast.success("Item Added successfully")}} ><IoCartOutline />Add to Cart</button>
                 <button className="bg-orange-500 py-3 text-xl font-medium text-white hover:bg-orange-600 transition-all duration-200">Buy Now</button>
 
               </div>

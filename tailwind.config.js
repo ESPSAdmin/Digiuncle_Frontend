@@ -8,6 +8,7 @@ module.exports = {
     fontFamily:{
       Coustom:["coustem","sans-serif"],
       roboto:["Roboto","sans-serif"],
+      newFont:["Roboto1","sans-serif"],
     },
   },
   plugins: [],

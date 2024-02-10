@@ -27,11 +27,11 @@ const sidebar = ({ slider, setSlider, token,logoutHandler }) => {
                 <div className='float-end mr-5'>
                     <MdClose size={25} onClick={() => setSlider(false)} />
                 </div>
-                <ul className='py-10'>
+                <ul className='py-10' onClick={()=>setSlider(false)}>
 
                     {token ? <>
                     <li className='hover:bg-gray-200 pe-20 py-2' >
-                        <Link className='flex items-center gap-2 px-4  '>
+                        <Link className='flex items-center gap-2 px-4  ' to="/profile" >
                             <FaRegUserCircle size={25} />
                             <span>
                                 My Profile

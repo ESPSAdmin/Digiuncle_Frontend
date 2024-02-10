@@ -14,3 +14,7 @@ html,body{
     font-family: Roboto;
     src: url("./fontes/Roboto-Regular.ttf");
 }
+@font-face {
+    font-family: Roboto1;
+    src: url("./fontes/RobotoCondensed-VariableFont_wght.ttf");
+}

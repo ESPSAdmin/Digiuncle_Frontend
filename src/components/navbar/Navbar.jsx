@@ -2,25 +2,29 @@ import React, { useEffect, useState } from "react";
 import { IoCartOutline } from "react-icons/io5";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import { RxHamburgerMenu } from "react-icons/rx";
-import {  SearchBar, Sidebar } from "..";
+import { SearchBar, Sidebar } from "..";
 import { IoIosSearch } from "react-icons/io";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaRegHeart } from "react-icons/fa6";
-import { useAuthContext, useCartContext } from "../../context";
+import { useAuthContext, useCartContext, useWishlistContext } from "../../context";
+import WishlistPage from "../../pages/Wishlistpage";
 
 const Navbar = () => {
-    const {Cart} = useCartContext()
+    const { Cart } = useCartContext()
     const location = useLocation()
     const [slider, setSlider] = useState(false)
+    const [wishlist, setWishlist] = useState(false)
     const navigate = useNavigate();
 
     const { token, logoutHandler } = useAuthContext()
+    const { Wishlist } = useWishlistContext()
 
     return (
         <>
             <Sidebar slider={slider} setSlider={setSlider} token={token} logoutHandler={logoutHandler} />
+            <WishlistPage wishlist={wishlist} setWishlist={setWishlist} />
 
-            <nav className=" w-screen sm:flex flex-col  sm:flex-row  md:px-4 items-center justify-center sm:justify-between py-2  bg-white z-40 sticky top-0 ">
+            <nav className=" w-screen sm:flex flex-col  sm:flex-row  md:px-4 items-center justify-center sm:justify-between py-2  bg-white z-40 sticky top-0  ">
                 <div className="flex justify-between mx-4 items-center ">
                     <Link to="/"  >
                         <img src="./image/logo.jpeg" className="h-10" alt="Logo" />
@@ -30,7 +34,7 @@ const Navbar = () => {
                 <div>
                     <ul className="flex items-center gap-8 justify-evenly lg py-2">
                         <li className="hidden md:flex">
-                           <SearchBar  />
+                            <SearchBar />
 
                         </li>
                         <li className="  md:hidden">
@@ -49,9 +53,13 @@ const Navbar = () => {
                             </Link>
                         </li>
                         <li>
-                            <Link className="flex flex-col items-center relative "  >
+                            <Link className="flex flex-col items-center relative " onClick={() => setWishlist(true)}  >
                                 <FaRegHeart className="text-3xl p-0 m-0" />
-                                <span className="hidden md:flex">Wishlist</span>
+                                <span className="hidden md:flex">Wishlist
+                                    {
+                                        Wishlist?.length > 0 ? <span className="bg-red-500  text-white font-bold px-[6px]  rounded-full text-sm absolute top-[-15%] right-0">{Wishlist.length}</span> : ""
+                                    }
+                                </span>
 
                             </Link>
                         </li>
@@ -60,12 +68,12 @@ const Navbar = () => {
                         </li>
                     </ul>
                 </div>
-                
+
 
             </nav>
             <hr />
 
-            {location.pathname == "/login" || location.pathname == "/signup" || location.pathname == "/Cart" ||location.pathname ==  "/product/:id" || location.pathname == "/productlist" || location.pathname == "/profile" ? null
+            {location.pathname == "/login" || location.pathname == "/signup" || location.pathname == "/Cart" || location.pathname == "/product/:id" || location.pathname == "/productlist" || location.pathname == "/profile" || location.pathname == "/checkout" ? null
                 : (<div className='py-2 w-screen hidden  md:flex  z-0 ' >
                     <nav className='h-full w-full mx-5 '>
                         <ul className='h-full flex items-center justify-evenly font-bold font-roboto text-gray-600'>

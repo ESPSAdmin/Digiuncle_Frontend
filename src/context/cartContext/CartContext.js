@@ -34,12 +34,11 @@ const CartContextProvider = ({ children }) => {
   const [state,dispatch] = useReducer(reducer,initialstate)
 
   const addToCart = (item)=>{
-    dispatch({type:"ADD_TO_CART" ,payload:{...item,productcount:count}})
+    dispatch({type:"ADD_TO_CART" ,payload:{...item,productcount:1}})
   }
 
   const removeItem = (item)=>{
     dispatch({type:"REMOVE_ITEM",payload:item.id})
-    window.location.reload()
   }
 
   const Increase = (item) => {

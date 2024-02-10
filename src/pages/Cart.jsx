@@ -2,11 +2,12 @@ import React from 'react'
 import { FaPlus } from "react-icons/fa6";
 import { FaMinus } from "react-icons/fa";
 import toast from 'react-hot-toast';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useCartContext } from '../context';
 import "../App.css"
 
 const Cart = () => {
+  const navigate = useNavigate()
   const {Decrease,Increase,Cart ,removeItem} = useCartContext()
   const Price = Cart.reduce((total, result) => total + result.price * result.productcount, 0)
  
@@ -55,10 +56,10 @@ const Cart = () => {
                 }
 
               </div>
-              <div className=' sm:hidden w-full flex items-center gap-5 bg-white justify-around '>
+              {/* <div className=' sm:hidden w-full flex items-center gap-5 bg-white justify-around '>
                 <button className='sm:text-md text-sm font-medium text-green-600' >ADD TO WISHLIST</button>
-                <button className='text-md font-medium text-red-500'>Remover</button>
-              </div>
+                <button className='text-md font-medium text-red-500' onClick={() => {removeItem(item); toast.success("Item Remove") }}>Remover</button>
+              </div> */}
               <div className='h-fit md:w-[25%] md:mr-4 bg-white rounded-md w-screen'>
                 <div className='py-3'>
                   <h2 className='ps-5 font-semibold text-xl text-gray-700'>PRICE DETAILS</h2>
@@ -88,7 +89,7 @@ const Cart = () => {
                 </div>
                 <div className='mx-3 py-2'>
 
-                  <button className='text-xl bg-green-600 font-medium w-full py-1 rounded-lg text-white' >CHECKOUT</button>
+                  <button className='text-xl bg-green-600 font-medium w-full py-1 rounded-lg text-white' onClick={()=>navigate("/checkout")} >CHECKOUT</button>
                 </div>
               </div>
             </div>

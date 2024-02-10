@@ -157,5 +157,11 @@
                 "quantity" : 15,
                 "capacity" : "1000ml"
               }
+    ],
+    "user":[
+      {
+        "username":"ravi@gmail.com",
+        "password":"raviyadav"
+      }
     ]
 }

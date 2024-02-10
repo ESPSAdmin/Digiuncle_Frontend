@@ -3,7 +3,7 @@ import { Banner, ProductCard } from '../components'
 import Login from './Login'
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { useProductContext } from '../context';
+import { useProductContext} from '../context';
 
 const Home = () => {
   const [data, setData] = useState([]);
