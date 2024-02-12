@@ -2,22 +2,23 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { IoIosSearch } from "react-icons/io";
 import axios from 'axios';
+import { product } from '../../database/db';
 
 const SearchBar = () => {
     const [search,setSearch] = useState("")
     const [data,setdata] = useState([])
    
     const getData = (value)=>{
-        axios.get("http://localhost:3002/product").then((res)=>{
-            let result = res.data.filter((item)=>{
+        // axios.get("http://localhost:3002/product").then((res)=>{
+            let result = product.filter((item)=>{
                 return value && item && item.title && item.title?.toLowerCase().includes(value)
             })
             // result = result.map((item)=>item.title)
             setdata(result)
             
-        }).catch((err)=>{
-            console.log(err.message)
-        })
+        // }).catch((err)=>{
+        //     console.log(err.message)
+        // })
     }
     const handleSearch =(value)=>{
         setSearch(value)

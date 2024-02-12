@@ -1,5 +1,5 @@
 import { ProductCard, ProductDetail, ProductList } from "../components";
-import {  SignIn,SignUp } from "../pages";
+import {  Home, SignIn,SignUp } from "../pages";
 
 export const authRoutes = [
     {
@@ -28,6 +28,10 @@ export const contentRoutes = [
     {
         path : '/productlist/:category',
         element : <ProductList/>,
+    },
+    {
+        path : '*',
+        element : <Home/>,
     },
 ];
 

@@ -33,9 +33,9 @@ const WishlistPage = ({ setWishlist, wishlist }) => {
                                     <div className="mt-8">
                                         <div className="flow-root">
                                             <ul role="list" className="-my-6 divide-y divide-gray-200">
-                                                {Wishlist.map((item) => {
+                                                {Wishlist?.map((item) => {
                                                     return (
-                                                        <li className="flex py-6">
+                                                        <li className="flex py-6" key={item.id}>
                                                             <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
                                                                 <img src={item.image} alt="Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt." className="h-full w-full object-cover object-center" />
                                                             </div>

@@ -6,6 +6,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import $ from 'jquery';
 
 import "./page.css"
+import { product } from '../../database/db';
 
 
 
@@ -13,7 +14,7 @@ const ProductListing = () => {
     const { category } = useParams()
     const navigate = useNavigate()
     const location = useLocation()
-    const [data, setData] = useState([])
+    const [data, setData] = useState(product)
     const [filterdata, setfilterdata] = useState([])
     const [range, setRange] = useState(null)
     const find_Category = data.map((item) => item.categoryName)
@@ -44,13 +45,13 @@ const ProductListing = () => {
 
     }
 
-    const getData = async () => {
-        const res = await axios.get("http://localhost:3002/product")
-        setData(res.data)
-    }
-    useEffect(() => {
-        getData()
-    }, [])
+    // const getData = async () => {
+    //     const res = await axios.get("http://localhost:3002/product")
+    //     setData(res.data)
+    // }
+    // useEffect(() => {
+    //     getData()
+    // }, [])
 
     return (
         <div className=' h-full w-screen px-6 pt-5 flex justify-between'>

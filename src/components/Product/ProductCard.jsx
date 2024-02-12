@@ -12,7 +12,6 @@ const ProductCard = ({ data = [] }) => {
     const { addRecentProduct } = useProductContext();
     const { Wishlist, addToWishlist } = useWishlistContext(); // Assuming you have this context available
 
-    const result = data.filter(item1 => Wishlist.some(item2 => item1.id === item2.id ));
 
     
     return (
@@ -24,10 +23,10 @@ const ProductCard = ({ data = [] }) => {
                 <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-1 sm:gap-5  ' >
                     {data.map((item) => {
                         return (
-                            <Link onClick={() => addRecentProduct(item)} >
+                            <Link to={`/product/${item?.id}`} onClick={() => addRecentProduct(item)} key={item?.id} >
                                 <div className='border '>
                                     <div className=' relative h-32 sm:h-52 w-full  rounded-md overflow-hidden bg-gray-200' >
-                                        <img src={item.image} alt="" className='size-full' onClick={() => navigate(`/product/${item.id}`)} />
+                                        <img src={item?.image} alt="" className='size-full' onClick={() => navigate(`/product/${item?.id}`)} />
                                         <div className='absolute h-5  w-5 bg-white top-2 right-3 cursor-default pointer-events-none' >
                                             <div className='pointer-events-auto' onClick={() =>addToWishlist(item)} >
                                                 
@@ -39,11 +38,11 @@ const ProductCard = ({ data = [] }) => {
                                         </div>
                                     </div>
                                     <div className='w-full h-24 px-3'>
-                                        <h2 className='coustem sm:text-xl font-Coustom'>{item.title.slice(0, 15)}...</h2>
-                                        <div > <span className='font font-medium sm:text-lg ' >{`${item.currency}${item.price}`}</span><span className='line-through font-medium text-xs sm:text-sm text-green-600 ps-3'>{item.discounted ? `${item.currency}${item.price - item.discounted}` : null}</span></div>
+                                        <h2 className='coustem sm:text-xl font-Coustom'>{item?.title?.slice(0, 15)}...</h2>
+                                        <div > <span className='font font-medium sm:text-lg ' >{`${item?.currency}${item?.price}`}</span><span className='line-through font-medium text-xs sm:text-sm text-green-600 ps-3'>{item.discounted ? `${item.currency}${item.price - item.discounted}` : null}</span></div>
                                         <div className='flex items-center gap-4'><ReactStars
                                             className='text-xl'
-                                            count={item.rating}
+                                            count={item?.rating}
                                             activeColor="#5c5470"
                                             isHalf={true}
                                             value={item.rating}

@@ -3,6 +3,7 @@ import axios from 'axios';
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import "./banner.css"
+import { bannerdata } from '../../database/db';
 
 const Banner = () => {
   const [data, setData] = useState([])
@@ -27,25 +28,25 @@ const Banner = () => {
     }
   };
 
-  const getData = () => {
-    axios.get("http://localhost:3002/bannerdata").then((res) => {
-      setData(res.data);
-    }).catch((err) => {
-      console.log(err)
-    })
+  // const getData = () => {
+  //   axios.get("http://localhost:3002/bannerdata").then((res) => {
+  //     setData(res.data);
+  //   }).catch((err) => {
+  //     console.log(err)
+  //   })
 
-  }
+  // }
   useEffect(() => {
-    getData()
+    // getData()
   }, [])
   return (
     <>
       <div className=' overflow-hidden z-0'>
 
 
-        <Carousel responsive={responsive} infinite={true} 
+        <Carousel responsive={responsive} infinite={true} autoPlay={true}
           autoPlaySpeed={3000} className=' static z-0' >
-          {data.map((item) => (
+          {bannerdata.map((item) => (
             <div className='mx-auto w-screen h-[50vh] static z-0' key={item.id}>
               <img src={item.path} alt="" className='w-full h-full' />
             </div>

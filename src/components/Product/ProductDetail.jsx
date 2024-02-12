@@ -5,11 +5,12 @@ import ReactStars from 'react-stars';
 import { IoCartOutline } from "react-icons/io5"
 import { useCartContext, useProductContext } from '../../context';
 import toast from 'react-hot-toast';
+import { product } from '../../database/db';
 
 const ProductDetail = () => {
   const { id } = useParams();
-  const [item, setItem] = useState([])
-  const filterdata = item.filter((i) => i.id == id)
+  // const [item, setItem] = useState([])
+  const filterdata = product.filter((i) => i.id == id)
   const {addToCart} = useCartContext()
   // const addToCart = (item) => {
   //   const isItemExist = cart.find((cartItem) => cartItem.id === item.id);
@@ -21,18 +22,18 @@ const ProductDetail = () => {
   //   }
   // }
 
-  const fetchProductDetail = async () => {
-    try {
-      const response = await axios.get(`http://localhost:3002/product`);
-      setItem(response.data)
-    } catch (err) {
-      console.log('Error fetching product details:', err);
-    }
-  }
+  // const fetchProductDetail = async () => {
+  //   try {
+  //     const response = await axios.get(`http://localhost:3002/product`);
+  //     setItem(response.data)
+  //   } catch (err) {
+  //     console.log('Error fetching product details:', err);
+  //   }
+  // }
 
-  useEffect(() => {
-    fetchProductDetail()
-  }, [id])
+  // useEffect(() => {
+  //   fetchProductDetail()
+  // }, [id])
 
   return (
     <>
@@ -62,11 +63,11 @@ const ProductDetail = () => {
               <div className='border px-3 py-1 rounded-md' >
 
                 <p className="text-2xl font-medium">{sp.title}</p>
-                <div className="text-lg font-medium">₹{sp.price} <span className="text-green-500 text-sm">{sp.discounted ? `(you save  ₹${sp.price - sp.discounted})` : null}</span> </div>
+                <p className="text-lg font-medium">₹{sp.price} <span className="text-green-500 text-sm">{sp.discounted ? `(you save  ₹${sp.price - sp.discounted})` : null}</span> </p>
                 <p className="line-through text-sm">{sp.discounted ? `₹${sp.discounted}` : null} </p>
-                <p>
+                
                   <ReactStars count={5} value={sp.rating} color={'#ffd700'} size={20} onChange={null} />
-                </p>
+                
 
               </div>
               <div className="border  px-3 py-2 my-3">

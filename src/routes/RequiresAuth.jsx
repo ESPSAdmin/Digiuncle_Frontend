@@ -4,7 +4,8 @@ import { useAuthContext } from '../context';
 const RequiresAuth = () => {
     const location = useLocation();
     const {token} = useAuthContext()
-  return token ? (
+    const Token = localStorage.getItem("token")
+  return Token ? (
     <Outlet /> 
     ) :(
       <>

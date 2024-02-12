@@ -14,7 +14,7 @@ import { MdSell } from "react-icons/md";
 import { MdClose } from "react-icons/md";
 
 
-const sidebar = ({ slider, setSlider, token,logoutHandler }) => {
+const sidebar = ({ slider, setSlider, token,logoutHandler,SetNotification }) => {
 
     const handleLogOut = ()=>{
         logoutHandler()
@@ -39,8 +39,8 @@ const sidebar = ({ slider, setSlider, token,logoutHandler }) => {
 
                         </Link>
                     </li>
-                    <li className='hover:bg-gray-200 pe-20 py-2' >
-                        <Link className='flex items-center gap-2 px-4  '>
+                    <li className='hover:bg-gray-200 pe-20 py-2' onClick={()=>SetNotification(true)}>
+                        <Link className='flex items-center gap-2 px-4  ' >
                             <IoIosNotificationsOutline size={25} />
                             <span>
                                 Notification
@@ -51,7 +51,7 @@ const sidebar = ({ slider, setSlider, token,logoutHandler }) => {
                         </Link>
                     </li>
                     <li className='hover:bg-gray-200 pe-20 py-2' >
-                        <Link className='flex items-center gap-2 px-4  '>
+                        <Link className='flex items-center gap-2 px-4  ' to="/orders">
                             <MdOutlineProductionQuantityLimits size={25} />
                             <span>
                                 My Order

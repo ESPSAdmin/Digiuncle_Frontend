@@ -8,21 +8,25 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaRegHeart } from "react-icons/fa6";
 import { useAuthContext, useCartContext, useWishlistContext } from "../../context";
 import WishlistPage from "../../pages/Wishlistpage";
+import { Notification } from "../../pages";
 
 const Navbar = () => {
     const { Cart } = useCartContext()
     const location = useLocation()
     const [slider, setSlider] = useState(false)
     const [wishlist, setWishlist] = useState(false)
+    const [notification, SetNotification] = useState(false)
     const navigate = useNavigate();
 
     const { token, logoutHandler } = useAuthContext()
     const { Wishlist } = useWishlistContext()
+    const Token = localStorage.getItem("token")
 
     return (
         <>
-            <Sidebar slider={slider} setSlider={setSlider} token={token} logoutHandler={logoutHandler} />
+            <Sidebar slider={slider} setSlider={setSlider} token={Token} logoutHandler={logoutHandler} SetNotification={SetNotification}/>
             <WishlistPage wishlist={wishlist} setWishlist={setWishlist} />
+            <Notification SetNotification={SetNotification} notification={notification}/>
 
             <nav className=" w-screen sm:flex flex-col  sm:flex-row  md:px-4 items-center justify-center sm:justify-between py-2  bg-white z-40 sticky top-0  ">
                 <div className="flex justify-between mx-4 items-center ">
@@ -47,7 +51,7 @@ const Navbar = () => {
                                 <IoCartOutline className="m-0 p-0 text-3xl" />
                                 <span className=" hidden md:flex p-0 m-0">Cart
                                     {
-                                        Cart?.length > 0 ? <span className="bg-red-500  text-white font-bold px-[6px]  rounded-full text-sm absolute top-[-17%] right-[-8px]">{Cart.length}</span> : ""
+                                        Cart?.length > 0 ? <span className="bg-red-500  text-white font-bold px-[6px]  rounded-full text-sm absolute top-[-17%] right-[-8px]">{Cart?.length}</span> : ""
                                     }
                                 </span>
                             </Link>
@@ -57,7 +61,7 @@ const Navbar = () => {
                                 <FaRegHeart className="text-3xl p-0 m-0" />
                                 <span className="hidden md:flex">Wishlist
                                     {
-                                        Wishlist?.length > 0 ? <span className="bg-red-500  text-white font-bold px-[6px]  rounded-full text-sm absolute top-[-15%] right-0">{Wishlist.length}</span> : ""
+                                        Wishlist?.length > 0 ? <span className="bg-red-500  text-white font-bold px-[6px]  rounded-full text-sm absolute top-[-15%] right-0">{Wishlist?.length}</span> : ""
                                     }
                                 </span>
 
@@ -73,7 +77,7 @@ const Navbar = () => {
             </nav>
             <hr />
 
-            {location.pathname == "/login" || location.pathname == "/signup" || location.pathname == "/Cart" || location.pathname == "/product/:id" || location.pathname == "/productlist" || location.pathname == "/profile" || location.pathname == "/checkout" ? null
+            {location.pathname == "/login" || location.pathname == "/signup" || location.pathname == "/Cart" || location.pathname == "/product/:id" || location.pathname == "/productlist" || location.pathname == "/profile" || location.pathname == "/checkout" || location.pathname == "/orders" ? null
                 : (<div className='py-2 w-screen hidden  md:flex  z-0 ' >
                     <nav className='h-full w-full mx-5 '>
                         <ul className='h-full flex items-center justify-evenly font-bold font-roboto text-gray-600'>

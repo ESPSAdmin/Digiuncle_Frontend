@@ -9,22 +9,22 @@ import "../App.css"
 const Cart = () => {
   const navigate = useNavigate()
   const {Decrease,Increase,Cart ,removeItem} = useCartContext()
-  const Price = Cart.reduce((total, result) => total + result.price * result.productcount, 0)
+  const Price = Cart?.reduce((total, result) => total + result.price * result.productcount, 0)
  
 
   return (
     <>
       {
-        Cart.length > 0 ? <>
+        Cart?.length > 0 ? <>
           <div className=' w-screen  flex  bg-gray-200 md:py-10'>
             <div className='h-fit md:h-[75vh] w-screen md:mx-8  flex flex-wrap sm:justify-between'>
               <div className='md:w-[70%]   rounded-xl w-screen h-full overflow-y-scroll scrollbar '>
                 <div className='py-3 flex justify-between  bg-white px-5 items-center font-medium mb-5'>
                   <span className='text-xs sm:text-sm md:text-base'>Total Unique Item</span>
-                  <button className='border py-1 px-2 text-xs sm:text-sm md:text-base'>{Cart.length}</button>
+                  <button className='border py-1 px-2 text-xs sm:text-sm md:text-base'>{Cart?.length}</button>
                 </div>
                 {
-                  Cart.map((item) => {
+                  Cart?.map((item) => {
                     return (
                       <div className='flex gap-5 bg-white px-5 py-2  ' key={item.id}>
                         <div className=' h-fit  sm:h-40 w-fit flex flex-col justify-between'>
@@ -67,7 +67,7 @@ const Cart = () => {
                 <hr />
                 <div>
                   <div className='flex justify-between px-5 py-2'>
-                    <span className='text-lg font-medium' >Price ({Cart.length} items)</span>
+                    <span className='text-lg font-medium' >Price ({Cart?.length} items)</span>
                     <span> ₹{Price}</span>
                   </div>
                   <div className='flex justify-between px-5 py-2'>

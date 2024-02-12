@@ -5,9 +5,11 @@ import { IoEyeOutline } from "react-icons/io5";
 import toast from 'react-hot-toast';
 import { useAuthContext } from '../context';
 import axios from 'axios';
+import { user } from '../database/db';
 
 const Login = () => {
     const { loginHandler, token, loggingIn } = useAuthContext();
+    const Token = localStorage.getItem("token")
     const navigate = useNavigate()
     const location = useLocation();
     const [show, setShow] = useState(false)
@@ -18,22 +20,23 @@ const Login = () => {
     });
 
 
-    const getdata = () => {
-        const data = axios.get("http://localhost:3002/user").then((res) => {
-            setdata(res.data)
-        }).catch((err) => {
-            console.log(err.message);
-        })
-    }
+    // const getdata = () => {
+    //     const data = axios.get("http://localhost:3002/user").then((res) => {
+    //         setdata(res.data)
+    //     }).catch((err) => {
+    //         console.log(err.message);
+    //     })
+    // }
     const handleSubmit = async (e) => {
-        const fliterdata = data.filter((item) => item.username === loginCredential.email)
+        const fliterdata = user.filter((item) => item.username === loginCredential.email)
         if (fliterdata.length > 0) {
             toast.success("login Successful")
             localStorage.setItem("token", "token")
+            // navigate("/")
             let id;
-            id = setTimeout(() => {
-                navigate(location?.state?.from?.pathname ?? "/")
-            }, 1000)
+                id = setTimeout(() => {
+                    navigate(location?.state?.from?.pathname ?? "/")
+                }, 1000)            
         }
         else {
             toast.error("bad credentials")
@@ -43,9 +46,9 @@ const Login = () => {
     };
 
     useEffect(() => {
-        getdata()
-        // let id;
-        // if(token){
+        // getdata()
+        let id;
+        // if(Token){
         //     id = setTimeout(() => {
         //         navigate(location?.state?.from?.pathname ?? "/")
         //     }, 1000)
@@ -53,6 +56,7 @@ const Login = () => {
         // return () => {
         //     clearInterval(id);
         // }
+        
     }, [token])
 
     return (

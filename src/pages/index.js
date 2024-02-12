@@ -4,3 +4,6 @@ export {default as SignUp} from './SignUp';
 export {default as Cart} from './Cart';
 export {default as CheckOut} from './Checkout';
 export {default as Wishlist} from './Wishlistpage';
+export {default as Orders} from "./Orders"
+export {default as MainLoader} from "./MainLoader"
+export {default as Notification} from "./Notification"
