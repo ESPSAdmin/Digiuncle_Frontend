@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
-import { AuthContextProvider, CartContextProvider, ProductContextProvider, WishlistProvider} from './context';
+import { AuthContextProvider, CartContextProvider, GetContestProvider, ProductContextProvider, WishlistProvider } from './context';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -13,7 +13,9 @@ root.render(
         <CartContextProvider>
           <ProductContextProvider>
             <BrowserRouter>
-              <App />
+              <GetContestProvider>
+                <App />
+              </GetContestProvider>
             </BrowserRouter>
           </ProductContextProvider>
         </CartContextProvider>

@@ -2,60 +2,36 @@ import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { IoEyeOffOutline } from "react-icons/io5";
 import { IoEyeOutline } from "react-icons/io5";
-import toast from 'react-hot-toast';
 import { useAuthContext } from '../context';
-import axios from 'axios';
-import { user } from '../database/db';
 
 const Login = () => {
-    const { loginHandler, token, loggingIn } = useAuthContext();
-    const Token = localStorage.getItem("token")
+    const { loginHandler, token, loading } = useAuthContext();
     const navigate = useNavigate()
     const location = useLocation();
     const [show, setShow] = useState(false)
-    const [data, setdata] = useState([])
     const [loginCredential, setLoginCredentials] = useState({
         email: "",
         password: "",
     });
 
 
-    // const getdata = () => {
-    //     const data = axios.get("http://localhost:3002/user").then((res) => {
-    //         setdata(res.data)
-    //     }).catch((err) => {
-    //         console.log(err.message);
-    //     })
-    // }
     const handleSubmit = async (e) => {
-        const fliterdata = user.filter((item) => item.username === loginCredential.email)
-        if (fliterdata.length > 0) {
-            toast.success("login Successful")
-            localStorage.setItem("token", "token")
-            // navigate("/")
-            let id;
-                id = setTimeout(() => {
-                    navigate(location?.state?.from?.pathname ?? "/")
-                }, 1000)            
-        }
-        else {
-            toast.error("bad credentials")
-        }
-        // e.preventDefault();  
-        // loginHandler(loginCredential);
+        
+        e.preventDefault();  
+        loginHandler(loginCredential);
     };
 
     useEffect(() => {
-        // getdata()
+        
         let id;
-        // if(Token){
-        //     id = setTimeout(() => {
-        //         navigate(location?.state?.from?.pathname ?? "/")
-        //     }, 1000)
-        // }
-        // return () => {
-        //     clearInterval(id);
-        // }
+        if(token){
+            id = setTimeout(() => {
+                navigate(location?.state?.from?.pathname ?? "/")
+            }, 1000)
+        }
+        return () => {
+            clearInterval(id);
+        }
         
     }, [token])
 
@@ -74,7 +50,7 @@ const Login = () => {
                                 </div>
                                 <div className="my-3">
                                     <label className="block text-md mb-2" htmlFor="email">Email</label>
-                                    <input className="px-4 w-full border-2 py-2 rounded-md text-sm outline-none" type="email" name="password" placeholder="email" onChange={(e) => setLoginCredentials({ ...loginCredential, email: e.target.value })} required />
+                                    <input className="px-4 w-full border-2 py-2 rounded-md text-sm outline-none" type="email" name="password" placeholder="email" onChange={(e) => setLoginCredentials({ ...loginCredential, email: e.target.value })} pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"  required />
                                 </div>
                                 <div className="mt-5 relative">
                                     <label className="block text-md mb-2" htmlFor="password">Password</label>
@@ -89,7 +65,7 @@ const Login = () => {
                                     <span className="text-sm text-blue-700 hover:underline cursor-pointer">Forgot password?</span>
                                 </div>
                                 <div className="">
-                                    <button className="mt-4 mb-3 w-full bg-green-500 hover:bg-green-400 text-white py-2 rounded-md flex items-center justify-center gap-3" type='button' onClick={handleSubmit}  >{loggingIn ? <img src='./loader/loader.gif' /> : null} Login  </button>
+                                    <button className="mt-4 mb-3 w-full bg-green-500 hover:bg-green-400 text-white py-2 rounded-md flex items-center justify-center gap-3" type='button' onClick={handleSubmit}  >{loading ? <img src='./loader/loader.gif' /> : null} Login  </button>
                                     {/* <div className="flex  space-x-2 justify-center items-end bg-gray-700 hover:bg-gray-600 text-white py-2 rounded-md transition duration-100">
 
                                         <img className=" h-5 cursor-pointer" src="https://i.imgur.com/arC60SB.png" alt="" />

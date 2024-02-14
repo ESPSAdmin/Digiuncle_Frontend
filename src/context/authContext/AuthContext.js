@@ -6,39 +6,74 @@ import Swal from "sweetalert2";
 export const AuthContext = createContext();
 
 const AuthContextProvider = ({ children }) => {
-  const [token, setToken] = useState(() => localStorage.getItem("token") || null);
-  const [loggingIn, setLoggingIn] = useState(false);
+  const [token, setToken] = useState();
+  const [loading, setLoading] = useState(false);
 
-  const loginHandler = async ({ email = "", password = "" }) => {
-    setLoggingIn(true);
-    
-    try {
-      const response = await axios.post(
-        'https://digiuncle-backend-api.onrender.com/api/users/login',
-        {
-          email,
-          password,
+  const SignUp = async(data) => {
+
+    try{
+      setLoading(true)
+      axios.post("http://localhost:8080/user/create",data).then((res)=>{
+        const authToken = res.data.token;
+        
+        if(authToken){
+          setToken(authToken);
+          localStorage.setItem('token', authToken);
         }
-      );
-      if (response.status === 200) {
-        const authToken = response.data.token;
-        setToken(authToken);
-        localStorage.setItem('token', authToken); // Store the token in local storage
-        console.log('Login successful:', authToken);
-        toast.success(response.data.message);
-      } else {
-        console.error('Login failed',);
-        // toast.error(res);
-        toast.error(response.data.message);
-      }
+        toast.success(res.data.message)
+      }).catch((err)=>{
+        console.log(err)
+      })
+
     } catch (error) {
       console.error('An error occurred during login:', error);
       toast.error('An error occurred during login');
     } finally {
-      setLoggingIn(false);
+      setLoading(false);
+    }
+
+  }
+
+  const loginHandler = async (value) => {
+    const data = {
+      username: value.email,
+      password: value.password
+    }
+
+    setLoading(true);
+
+    try {
+      axios.post(
+        'http://localhost:8080/user/login',
+        data
+      ).then((res)=>{
+        const authToken = res.data.token;
+        if(authToken){
+          setToken(authToken);
+          localStorage.setItem('token', authToken);
+        }
+        toast.success(res.data.message);
+      }).catch((err)=>{
+        if(!err.response.data.errors){
+          toast.error(err.response.data.message)
+        }else{
+
+          if(err.response.data.errors.length > 1){
+            toast.error("Email or Password Is required")
+          }else{
+            toast.error(err.response.data.errors[0].msg)
+          }
+          
+        }
+      })
+    } catch (error) {
+      console.error('An error occurred during login:', error);
+      toast.error('An error occurred during login');
+    } finally {
+      setLoading(false);
     }
   };
-  
+
   const logoutHandler = () => {
     Swal.fire({
       title: 'Are you sure?',
@@ -50,22 +85,22 @@ const AuthContextProvider = ({ children }) => {
       confirmButtonText: 'Yes, log me out!'
     }).then((result) => {
       if (result.isConfirmed) {
-        // User confirmed, proceed with logout
         localStorage.removeItem("token");
         setToken(null);
         window.location.href = '/login'; // Use '=' instead of '('
       }
     });
   };
-  
+
 
   return (
     <AuthContext.Provider
       value={{
         loginHandler,
         token,
-        loggingIn,
+        loading,
         logoutHandler,
+        SignUp
       }}
     >
       {children}
